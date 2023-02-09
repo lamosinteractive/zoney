@@ -32,7 +32,7 @@ class MyApp extends Homey.App {
     flows.register(new ZoneLightDimRelativeFlow('zoney-light-brighten', 0.2))
     flows.register(new DeviceLightToggleSmartFlow())
 
-    
+
   }
 }
 

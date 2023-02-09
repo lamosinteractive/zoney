@@ -2,7 +2,8 @@ import {HomeyAPI} from "athom-api";
 import {Capability} from "../types/capabilities";
 import {FlowParameter} from "../types/flow-parameter";
 import {Class} from "../types/classes";
-import Device = HomeyAPI.ManagerDevices.Device;
+import Helpers from "../classes/helpers";
+import DeviceContext from "../classes/device-context";
 
 export abstract class FlowBase<TArgs> {
     private _api!: HomeyAPI;
@@ -22,44 +23,22 @@ export abstract class FlowBase<TArgs> {
         const capability = this.getCapability(args, state)
 
         const devices = this.filterDevices(Object.values(await this._api.devices.getDevices()), args, state)
-        const capabilityDevices = devices.filter(x => x.capabilities.includes(capability));
+        const context = new DeviceContext(devices);
 
-        const value = this.getValue(args, this.everythingExceptZoney(capabilityDevices));
+        const value = this.getValue(args, context);
 
-        const instances = this.getZoneyOrAll(capabilityDevices).map(x => {
-            return x.makeCapabilityInstance(capability, () => {})
-        })
-
-        for (let instance of instances) {
-            instance.setValue(value)
-            instance.destroy()
-        }
-    }
-
-    private getZoneyOrAll(devices: Device[]): Device[] {
-        const zoney = devices.find(x => x.driverId.includes('zoney'))
-
-        return !!zoney ? [zoney] : devices
-    }
-
-    private everythingExceptZoney(devices: Device[]): Device[]  {
-        return devices.filter(x => !x.driverId.includes('zoney'))
+        context.setCapability(capability, value)
     }
 
     public getId(): string {
         return this._id;
     }
 
-    protected getCapabilityValue(device: Device, capability: Capability): any {
-        // @ts-ignore
-        return device.capabilitiesObj[capability].value
-    }
-
     public abstract getArguments(): FlowParameter[];
 
     protected abstract getCapability(args: TArgs, state: any): Capability;
 
-    protected abstract getValue(args: TArgs, instances: HomeyAPI.ManagerDevices.Device[]): any;
+    protected abstract getValue(args: TArgs, context: DeviceContext): any;
 
     protected abstract filterDevices(devices: HomeyAPI.ManagerDevices.Device[], args: TArgs, state: any): HomeyAPI.ManagerDevices.Device[];
 }
@@ -89,7 +68,7 @@ export class SetZoneNumberFlow extends FlowBase<GenericZoneArguments> {
         return args.capability.id;
     }
 
-    protected getValue(args: GenericZoneArguments, devices: HomeyAPI.ManagerDevices.Device[]): any {
+    protected getValue(args: GenericZoneArguments, context: DeviceContext): any {
         return args.number
     }
 }
@@ -124,7 +103,7 @@ export class ZoneClassBoolFlow extends FlowBase<ZoneClassBoolFlowArguments> {
         return Capability.onoff;
     }
 
-    protected getValue(args: ZoneClassBoolFlowArguments, devices: HomeyAPI.ManagerDevices.Device[]): any {
+    protected getValue(args: ZoneClassBoolFlowArguments, context: DeviceContext): any {
         return this._value;
     }
 }
@@ -155,21 +134,12 @@ export class ZoneLightOnSmartFlow extends FlowBase<ZoneLightOnSmartArguments> {
         return Capability.dim;
     }
 
-    protected getValue(args: ZoneLightOnSmartArguments, devices: HomeyAPI.ManagerDevices.Device[]): any {
-        if (this.allOn(devices)) {
+    protected getValue(args: ZoneLightOnSmartArguments, context: DeviceContext): any {
+        if (context.allOn()) {
             return 1;
         }
 
         return 0.7;
-    }
-
-    private allOn(devices: HomeyAPI.ManagerDevices.Device[]) {
-        for (let device of devices) {
-            if (this.getCapabilityValue(device, Capability.dim) === 0)
-                return false;
-        }
-
-        return true;
     }
 }
 
@@ -198,24 +168,16 @@ export class DeviceLightOnSmartFlow extends FlowBase<DeviceLightOnSmartArguments
         return Capability.dim;
     }
 
-    protected getValue(args: DeviceLightOnSmartArguments, devices: HomeyAPI.ManagerDevices.Device[]): any {
-        if (this.allOnTarget(devices, 0.7)) {
+    protected getValue(args: DeviceLightOnSmartArguments, context: DeviceContext): any {
+        if (!context.allOn()) {
+            return 0.7;
+        }
+
+        if (context.allAtLeast(Capability.dim, 0.7)) {
             return 1;
         }
 
         return 0.7;
-    }
-
-    private allOnTarget(devices: HomeyAPI.ManagerDevices.Device[], target: number) {
-        for (let device of devices) {
-            if (this.getCapabilityValue(device, Capability.onoff) === false)
-                return false;
-
-            if (this.getCapabilityValue(device, Capability.dim) < target)
-                return false;
-        }
-
-        return true;
     }
 }
 
@@ -244,21 +206,12 @@ export class DeviceLightToggleSmartFlow extends FlowBase<DeviceLightToggleSmartA
         return Capability.dim;
     }
 
-    protected getValue(args: DeviceLightToggleSmartArguments, devices: HomeyAPI.ManagerDevices.Device[]): any {
-        if (!this.allOn(devices)) {
+    protected getValue(args: DeviceLightToggleSmartArguments, context: DeviceContext): any {
+        if (!context.allOn()) {
             return 0.7;
         }
 
         return 0;
-    }
-
-    private allOn(devices: HomeyAPI.ManagerDevices.Device[]) {
-        for (let device of devices) {
-            if (this.getCapabilityValue(device, Capability.dim) === 0)
-                return false;
-        }
-
-        return true;
     }
 }
 
@@ -292,7 +245,7 @@ export class ZoneLightDimFlow extends FlowBase<ZoneLightDimFlowArguments> {
         return Capability.dim;
     }
 
-    protected getValue(args: ZoneLightDimFlowArguments, devices: HomeyAPI.ManagerDevices.Device[]): any {
+    protected getValue(args: ZoneLightDimFlowArguments, context: DeviceContext): any {
         return this._value
     }
 }
@@ -326,25 +279,9 @@ export class ZoneLightDimRelativeFlow extends FlowBase<ZoneLightDimRelativeFlowA
         return Capability.dim;
     }
 
-    protected getValue(args: ZoneLightDimRelativeFlowArguments, devices: HomeyAPI.ManagerDevices.Device[]): any {
-        const value = this.getAverage(devices) + this._value;
+    protected getValue(args: ZoneLightDimRelativeFlowArguments, context: DeviceContext): any {
+        const value = context.getAverage(Capability.dim) + this._value;
 
-        return this.clamp(value, 0, 1)
-    }
-
-    private getAverage(devices: HomeyAPI.ManagerDevices.Device[]): number {
-        const values = Object.values(devices).map(x => this.getCapabilityValue(x, Capability.dim))
-
-        return values.reduce((a, b) => a + b, 0) / values.length;
-    }
-
-    private clamp(value: number, min: number, max: number) {
-        if (value < min)
-            return min;
-
-        if (value > max)
-            return max;
-
-        return value
+        return Helpers.clamp(value, 0, 1)
     }
 }
