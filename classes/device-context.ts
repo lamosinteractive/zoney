@@ -22,7 +22,7 @@ export default class DeviceContext {
 
     public getCapabilityDevices(capability: Capability): Device[] {
         if (!this._capabilities[capability]) {
-            const devices = this._devices.filter(x => x.capabilities);
+            const devices = this._devices.filter(x => x.capabilities.includes(capability));
             this._capabilities[capability] = devices.filter(x => !x.driverId.includes('zoney'));
             this._zoneys[capability] = devices.find(x => x.driverId.includes('zoney')) ?? null;
         }
