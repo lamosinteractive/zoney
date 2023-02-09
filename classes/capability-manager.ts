@@ -13,6 +13,25 @@ export default class CapabilityManager {
         this._allowedCapabilities = allowedCapabilities;
     }
 
+    public async init(api: HomeyAPI, deviceClass: string) {
+        for (let value of Object.values(this._capabilities)) {
+            value.clear()
+        }
+
+        const zoneId = this._aggregatedDevice.getStoreValue('zone')
+        const zone = await api.zones.getZone({ id: zoneId })
+
+        const allDevices = Object.values(await api.devices.getDevices());
+        const classDevices = allDevices.filter(x => x.class === deviceClass && !x.driverUri.includes('devicegroups') && !x.driverUri.includes('zoney'))
+
+        if (!!zone.parent) {
+            classDevices.filter(x => x.zone === zoneId).forEach(x => this.register(x));
+            return;
+        }
+
+        classDevices.forEach(x => this.register(x));
+    }
+
     public getCapabilities(): string[] {
         return Object.keys(this._capabilities)
     }

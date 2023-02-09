@@ -1,0 +1,13 @@
+{
+  "id": "zoney-light-dim",
+  "title": { "en": "Dim lights in zone" },
+  "titleFormatted": { "en": "Dim lights in [[zone]]" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": { "en": "Zone" },
+      "placeholder": { "en": "Livingroom" }
+    }
+  ]
+}

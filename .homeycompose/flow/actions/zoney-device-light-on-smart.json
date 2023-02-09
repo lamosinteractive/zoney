@@ -1,0 +1,12 @@
+{
+  "id": "zoney-device-light-on-smart",
+  "title": { "en": "Turn on light on (smart)" },
+  "titleFormatted": { "en": "Turn on [[device_light]] (smart)" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "device_light",
+      "title": { "en": "Light" }
+    }
+  ]
+}

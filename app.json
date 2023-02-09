@@ -31,10 +31,210 @@
   "flow": {
     "actions": [
       {
+        "id": "zoney-device-light-on-smart",
         "title": {
-          "en": "TestCard"
+          "en": "Turn on light on (smart)"
         },
-        "id": "zoney-test-card"
+        "titleFormatted": {
+          "en": "Turn on [[device_light]] (smart)"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "device_light",
+            "title": {
+              "en": "Light"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-light-brighten",
+        "title": {
+          "en": "Brighten lights in zone"
+        },
+        "titleFormatted": {
+          "en": "Brighten lights in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-light-dim",
+        "title": {
+          "en": "Dim lights in zone"
+        },
+        "titleFormatted": {
+          "en": "Dim lights in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-light-off",
+        "title": {
+          "en": "Turn off lights in zone"
+        },
+        "titleFormatted": {
+          "en": "Turn off lights in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-light-on",
+        "title": {
+          "en": "Turn on lights in zone"
+        },
+        "titleFormatted": {
+          "en": "Turn on lights in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-light-on-max",
+        "title": {
+          "en": "Turn on lights in zone (max)"
+        },
+        "titleFormatted": {
+          "en": "Turn on lights in [[zone]] (max)"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-light-on-smart",
+        "title": {
+          "en": "Turn on lights in zone (smart)"
+        },
+        "titleFormatted": {
+          "en": "Turn on lights in [[zone]] (smart)"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-light-toggle-smart",
+        "title": {
+          "en": "Toggle lights in zone (smart)"
+        },
+        "titleFormatted": {
+          "en": "Toggle lights in [[zone]] (smart)"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-zone-set-number",
+        "title": {
+          "en": "Set number in zone"
+        },
+        "titleFormatted": {
+          "en": "Set [[capability]] as [[number]] in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          },
+          {
+            "type": "autocomplete",
+            "name": "capability",
+            "title": {
+              "en": "Capability"
+            },
+            "placeholder": {
+              "en": "dim"
+            }
+          },
+          {
+            "type": "number",
+            "name": "number",
+            "title": {
+              "en": "Number"
+            },
+            "placeholder": {
+              "en": 50
+            }
+          }
+        ]
       }
     ]
   },
@@ -49,8 +249,20 @@
         "onoff",
         "light_hue",
         "light_saturation",
-        "light_temperature"
+        "light_temperature",
+        "button.sync"
       ],
+      "capabilitiesOptions": {
+        "button.sync": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Start sync"
+          },
+          "desc": {
+            "en": "Start syncing zoney with the zone."
+          }
+        }
+      },
       "platforms": [
         "local"
       ],
@@ -74,6 +286,100 @@
         }
       ],
       "id": "zoney-lights"
+    },
+    {
+      "name": {
+        "en": "ZoneySockets"
+      },
+      "class": "socket",
+      "capabilities": [
+        "onoff",
+        "dim",
+        "locked"
+      ],
+      "capabilitiesOptions": {
+        "button.sync": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Start sync"
+          },
+          "desc": {
+            "en": "Start syncing zoney with the zone."
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/zoney-sockets/assets/images/small.png",
+        "large": "/drivers/zoney-sockets/assets/images/large.png",
+        "xlarge": "/drivers/zoney-sockets/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "zoney-sockets"
+    },
+    {
+      "name": {
+        "en": "ZoneySpeakers"
+      },
+      "class": "speaker",
+      "capabilities": [
+        "speaker_playing",
+        "speaker_next",
+        "speaker_prev",
+        "speaker_shuffle",
+        "speaker_duration",
+        "speaker_position",
+        "button.sync"
+      ],
+      "capabilitiesOptions": {
+        "button.sync": {
+          "maintenanceAction": true,
+          "title": {
+            "en": "Start sync"
+          },
+          "desc": {
+            "en": "Start syncing zoney with the zone."
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/zoney-speakers/assets/images/small.png",
+        "large": "/drivers/zoney-speakers/assets/images/large.png",
+        "xlarge": "/drivers/zoney-speakers/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_my_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "zoney-speakers"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import Homey from 'homey';
 import { HomeyAPI } from 'athom-api';
 
-class ZoneyLightDriver extends Homey.Driver {
+class ZoneySocketDriver extends Homey.Driver {
   private _zones: HomeyAPI.ManagerZones.Zone[] = [];
 
   /**
@@ -24,18 +24,12 @@ class ZoneyLightDriver extends Homey.Driver {
   async onPairListDevices() {
     this.log('onPairListDevices')
 
-    const zoneIds = this.getDevices().map(x => x.getStoreValue('zone'));
-    const filtered = this._zones.filter(x => !zoneIds.includes(x.id))
-
-    this.log(zoneIds)
-    this.log(filtered)
-
     return [
-      ...filtered.map(zone => {
+      ...this._zones.map(zone => {
         return {
-          name: `${zone.name} Light Zoney`,
+          name: `${zone.name} Socket Zoney`,
           data: {
-            id: `zoney-lights-${zone.id}`
+            id: `zoney-sockets-${zone.id}`
           },
           store: {
             zone: zone.id,
@@ -47,4 +41,4 @@ class ZoneyLightDriver extends Homey.Driver {
 
 }
 
-module.exports = ZoneyLightDriver;
+module.exports = ZoneySocketDriver;

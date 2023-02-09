@@ -1,0 +1,13 @@
+{
+  "id": "zoney-light-on-smart",
+  "title": { "en": "Turn on lights in zone (smart)" },
+  "titleFormatted": { "en": "Turn on lights in [[zone]] (smart)" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": { "en": "Zone" },
+      "placeholder": { "en": "Livingroom" }
+    }
+  ]
+}

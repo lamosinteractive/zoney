@@ -1,0 +1,13 @@
+{
+  "id": "zoney-light-on-max",
+  "title": { "en": "Turn on lights in zone (max)" },
+  "titleFormatted": { "en": "Turn on lights in [[zone]] (max)" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": { "en": "Zone" },
+      "placeholder": { "en": "Livingroom" }
+    }
+  ]
+}

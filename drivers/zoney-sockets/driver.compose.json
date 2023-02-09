@@ -1,15 +1,12 @@
 {
   "name": {
-    "en": "ZoneyLights"
+    "en": "ZoneySockets"
   },
-  "class": "light",
+  "class": "socket",
   "capabilities": [
-    "dim",
     "onoff",
-    "light_hue",
-    "light_saturation",
-    "light_temperature",
-    "button.sync"
+    "dim",
+    "locked"
   ],
   "capabilitiesOptions": {
     "button.sync": {

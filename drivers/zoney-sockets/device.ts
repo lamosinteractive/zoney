@@ -2,7 +2,7 @@ import Homey from 'homey';
 import CapabilityManager from "../../classes/capability-manager";
 import {HomeyAPI} from "athom-api";
 
-class ZoneyLight extends Homey.Device {
+class ZoneySocket extends Homey.Device {
   private _capabilityManager!: CapabilityManager;
   private _api!: HomeyAPI;
 
@@ -14,7 +14,7 @@ class ZoneyLight extends Homey.Device {
 
     this.log(`ZoneyLight has been initialized (${zone})`);
 
-    const capabilities = ["dim", "onoff", "light_hue", "light_saturation", "light_temperature"];
+    const capabilities = ["onoff", "dim", "locked"];
 
     this._api = await HomeyAPI.forCurrentHomey(this.homey);
 
@@ -35,7 +35,7 @@ class ZoneyLight extends Homey.Device {
   }
 
   private async initializeCapabilities() {
-    await this._capabilityManager.init(this._api, 'light')
+    await this._capabilityManager.init(this._api, 'socket')
     await this.syncCapabilities();
 
     this.log(`Using capabilities: ${this._capabilityManager.getCapabilities().join(", ")}`)
@@ -97,4 +97,4 @@ class ZoneyLight extends Homey.Device {
 
 }
 
-module.exports = ZoneyLight;
+module.exports = ZoneySocket;

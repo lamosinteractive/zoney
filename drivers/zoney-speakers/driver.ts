@@ -24,18 +24,12 @@ class ZoneyLightDriver extends Homey.Driver {
   async onPairListDevices() {
     this.log('onPairListDevices')
 
-    const zoneIds = this.getDevices().map(x => x.getStoreValue('zone'));
-    const filtered = this._zones.filter(x => !zoneIds.includes(x.id))
-
-    this.log(zoneIds)
-    this.log(filtered)
-
     return [
-      ...filtered.map(zone => {
+      ...this._zones.map(zone => {
         return {
-          name: `${zone.name} Light Zoney`,
+          name: `${zone.name} Speaker Zoney`,
           data: {
-            id: `zoney-lights-${zone.id}`
+            id: `zoney-speakers-${zone.id}`
           },
           store: {
             zone: zone.id,

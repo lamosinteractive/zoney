@@ -1,0 +1,13 @@
+{
+  "id": "zoney-light-brighten",
+  "title": { "en": "Brighten lights in zone" },
+  "titleFormatted": { "en": "Brighten lights in [[zone]]" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": { "en": "Zone" },
+      "placeholder": { "en": "Livingroom" }
+    }
+  ]
+}

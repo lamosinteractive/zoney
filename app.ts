@@ -1,5 +1,14 @@
 import Homey from 'homey';
 import {HomeyAPI} from "athom-api";
+import FlowHandler from "./classes/flow-handler";
+import {
+  DeviceLightOnSmartFlow, DeviceLightToggleSmartFlow,
+  SetZoneNumberFlow,
+  ZoneClassBoolFlow,
+  ZoneLightDimFlow, ZoneLightDimRelativeFlow,
+  ZoneLightOnSmartFlow
+} from "./flows/flow-base";
+import {Class} from "./types/classes";
 
 class MyApp extends Homey.App {
 
@@ -10,53 +19,21 @@ class MyApp extends Homey.App {
     this.log('MyApp has been initialized');
 
     const api = await HomeyAPI.forCurrentHomey(this.homey);
-    const allDevices = Object.values(await api.devices.getDevices());
-    const btns = allDevices.filter(x => x.class === 'remote' && !x.driverUri.includes('devicegroups') && !x.driverUri.includes('zoney'))
 
-    const btnIds = btns.map(x => x.id)
+    const flows = new FlowHandler(this, api)
 
-    btns.forEach(btn => {
-    })
+    flows.register(new ZoneClassBoolFlow('zoney-light-on', Class.light, true))
+    flows.register(new ZoneClassBoolFlow('zoney-light-off', Class.light, false))
+    flows.register(new SetZoneNumberFlow('zoney-zone-set-number'))
+    flows.register(new ZoneLightOnSmartFlow())
+    flows.register(new ZoneLightDimFlow('zoney-light-on-max', 1))
+    flows.register(new DeviceLightOnSmartFlow())
+    flows.register(new ZoneLightDimRelativeFlow('zoney-light-dim', -0.2))
+    flows.register(new ZoneLightDimRelativeFlow('zoney-light-brighten', 0.2))
+    flows.register(new DeviceLightToggleSmartFlow())
 
-
-    const tokens = await api.flowToken.getFlowTokens()
-
-    const btnTokens = Object.values(tokens).filter(x => btnIds.includes(x.uriObj.id))
-
-    this.log(btnTokens)
-
-    // const triggers = await api.flow.getFlowCardTriggers()
-    //
-    // const btnTriggers = triggers.filter(x => btnIds.includes(x.uriObj.id))
-
-    // const test = this.homey.flow.getDeviceTriggerCard('on')
-    // console.log(test)
-
-
-    // let folders = await api.flow.getFlowFolders()
-    // let folder = folders['test-folder']
-    //
-    // if (!folder) {
-    //   this.log("create folder")
-    //   await api.flow.createFlowFolder({ flowfolder: { id: 'test-folder' }})
-    //   folder = await api.flow.getFlowFolder({ id: 'test-folder' })
-    // }
-    //
-    // this.log(folder)
-
-
-    // const apps = await api.apps.getApps()
-    // this.log(apps)
-
-    // const tradfri = await api.apps.getApp({ id: 'com.ikea.tradfri'})
-
-
-    // btnTriggers.forEach(x => {
-    //   x.
-    // })
-    // console.log(btnTriggers)
+    
   }
-
 }
 
 module.exports = MyApp;

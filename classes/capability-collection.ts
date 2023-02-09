@@ -11,9 +11,16 @@ export abstract class CapabilityCollectionBase<T> {
         this._device = device;
     }
 
+    public clear() {
+        for (let value of Object.values(this._devices)) {
+            value.destroy()
+        }
+
+        this._devices = {}
+    }
+
     public register(device: HomeyAPI.ManagerDevices.Device) {
         let id = device.id;
-
 
         this._devices[id] = device.makeCapabilityInstance(
             this._capability,
@@ -31,7 +38,15 @@ export abstract class CapabilityCollectionBase<T> {
     }
 
     protected applyValue(value: any) {
-        Object.values(this._devices).forEach(x => x.setValue(value))
+        for (let id of Object.keys(this._devices)) {
+            const device = this._devices[id]
+            try {
+                device.setValue(value)
+            } catch (e) {
+                this._device.log(`Error setting ${this._capability} on ${id}`);
+                this._device.log(e);
+            }
+        }
     }
 
     public abstract getValue(): T;
@@ -42,9 +57,7 @@ export class AverageCapabilityCollection extends CapabilityCollectionBase<number
     public getValue(): number {
         const values = Object.values(this._devices).map(x => x.value)
 
-        const average = values.reduce((a, b) => a + b, 0) / values.length;
-
-        return average;
+        return values.reduce((a, b) => a + b, 0) / values.length;
     }
 
     setValue(value: any) {
@@ -52,7 +65,19 @@ export class AverageCapabilityCollection extends CapabilityCollectionBase<number
     }
 }
 
-export class BoolCapabilityCollection extends CapabilityCollectionBase<boolean> {
+export class SumCapabilityCollection extends CapabilityCollectionBase<number> {
+    public getValue(): number {
+        const values = Object.values(this._devices).map(x => x.value)
+
+        return values.reduce((a, b) => a + b, 0);
+    }
+
+    setValue(value: any) {
+        this.applyValue(value)
+    }
+}
+
+export class BoolAnyCapabilityCollection extends CapabilityCollectionBase<boolean> {
     public getValue(): boolean {
         for (let device of Object.values(this._devices)) {
             if (!!device.value)
@@ -60,6 +85,20 @@ export class BoolCapabilityCollection extends CapabilityCollectionBase<boolean> 
         }
 
         return false;
+    }
+
+    setValue(value: any) {
+        this.applyValue(value)
+    }
+}
+export class BoolAllCapabilityCollection extends CapabilityCollectionBase<boolean> {
+    public getValue(): boolean {
+        for (let device of Object.values(this._devices)) {
+            if (!device.value)
+                return false;
+        }
+
+        return true;
     }
 
     setValue(value: any) {
