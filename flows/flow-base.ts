@@ -8,7 +8,7 @@ import DeviceContext from "../classes/device-context";
 export abstract class FlowBase<TArgs> {
     private _api!: HomeyAPI;
     private _id: string;
-    private log!: (x: any) => void;
+    protected log!: (x: any) => void;
 
     constructor(id: string) {
         this._id = id;
@@ -23,7 +23,7 @@ export abstract class FlowBase<TArgs> {
         const capability = this.getCapability(args, state)
 
         const devices = this.filterDevices(Object.values(await this._api.devices.getDevices()), args, state)
-        const context = new DeviceContext(devices);
+        const context = new DeviceContext(devices.filter(x => x.available));
 
         const value = this.getValue(args, context);
 

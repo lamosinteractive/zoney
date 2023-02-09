@@ -46,7 +46,7 @@ export default class DeviceContext {
 
     public allOn() {
         for (let device of this.getCapabilityDevices(Capability.onoff)) {
-            if (this.getCapabilityValue(device, Capability.onoff) === 0)
+            if (!this.getCapabilityValue(device, Capability.onoff))
                 return false;
         }
 
