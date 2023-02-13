@@ -1,0 +1,31 @@
+{
+  "id": "zoney-generated-set-speaker-speaker_prev",
+  "title": {
+    "en": "Set speaker Previous in zone"
+  },
+  "titleFormatted": {
+    "en": "Set speaker Previous to [[bool]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "boolean",
+      "name": "bool",
+      "title": {
+        "en": "Bool"
+      },
+      "placeholder": {
+        "en": "true"
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "zoney-generated-set-remote-volume_set",
+  "title": {
+    "en": "Set remote Set volume in zone"
+  },
+  "titleFormatted": {
+    "en": "Set remote Set volume to [[number]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "number",
+      "name": "number",
+      "title": {
+        "en": "Number"
+      },
+      "placeholder": {
+        "en": "1"
+      },
+      "decimals": 2,
+      "min": 0,
+      "max": 1
+    }
+  ]
+}

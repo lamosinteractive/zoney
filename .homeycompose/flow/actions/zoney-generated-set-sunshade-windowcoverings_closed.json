@@ -1,0 +1,31 @@
+{
+  "id": "zoney-generated-set-sunshade-windowcoverings_closed",
+  "title": {
+    "en": "Set sunshade Closed in zone"
+  },
+  "titleFormatted": {
+    "en": "Set sunshade Closed to [[bool]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "boolean",
+      "name": "bool",
+      "title": {
+        "en": "Bool"
+      },
+      "placeholder": {
+        "en": "true"
+      }
+    }
+  ]
+}

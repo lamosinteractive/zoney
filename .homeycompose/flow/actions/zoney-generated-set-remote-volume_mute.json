@@ -1,0 +1,31 @@
+{
+  "id": "zoney-generated-set-remote-volume_mute",
+  "title": {
+    "en": "Set remote Volume muted in zone"
+  },
+  "titleFormatted": {
+    "en": "Set remote Volume muted to [[bool]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "boolean",
+      "name": "bool",
+      "title": {
+        "en": "Bool"
+      },
+      "placeholder": {
+        "en": "true"
+      }
+    }
+  ]
+}

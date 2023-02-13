@@ -1,0 +1,19 @@
+{
+  "id": "zoney-class-off",
+  "title": { "en": "Turn off type in zone (max)" },
+  "titleFormatted": { "en": "Turn off [[class]] in [[zone]]" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": { "en": "Zone" },
+      "placeholder": { "en": "Livingroom" }
+    },
+    {
+      "type": "autocomplete",
+      "name": "class",
+      "title": { "en": "Class" },
+      "placeholder": { "en": "Lights" }
+    }
+  ]
+}

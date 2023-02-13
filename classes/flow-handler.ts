@@ -12,6 +12,7 @@ export default class FlowHandler {
     private _zones: Argument<string>[] = [];
     private _capabilities: Argument<string>[] = [];
     private _app: App;
+    private _classes: Argument<string>[] = [];
 
     constructor(app: App, api: HomeyAPI) {
         this._app = app;
@@ -29,6 +30,11 @@ export default class FlowHandler {
 
         this._capabilities = Object.values(Capability).map(x => ({
             name: x,
+            id: x
+        }))
+
+        this._classes = Object.values(Class).map(x => ({
+            name: x + 's', // high quality plural
             id: x
         }))
     }
@@ -51,6 +57,9 @@ export default class FlowHandler {
         if (flow.getArguments().includes(FlowParameter.capability))
             card.registerArgumentAutocompleteListener(FlowParameter.capability, (query, args) => this.autocompleteCapability(query, args))
 
+        if (flow.getArguments().includes(FlowParameter.class))
+            card.registerArgumentAutocompleteListener(FlowParameter.class, (query, args) => this.autocompleteClass(query, args))
+
         if (flow.getArguments().includes(FlowParameter.device))
             card.registerArgumentAutocompleteListener(FlowParameter.device, (query, args) => this.autocompleteDevice(query, args))
 
@@ -66,6 +75,10 @@ export default class FlowHandler {
 
     private async autocompleteCapability(query: string, args: any) {
         return this._capabilities.filter(x => x.id.includes(query.toLowerCase()))
+    }
+
+    private async autocompleteClass(query: string, args: any) {
+        return this._classes.filter(x => x.id.includes(query.toLowerCase()))
     }
 
     private async autocompleteDevice(query: string, args: any) {

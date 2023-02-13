@@ -1,0 +1,34 @@
+{
+  "id": "zoney-generated-set-socket-dim",
+  "title": {
+    "en": "Set socket Dim level in zone"
+  },
+  "titleFormatted": {
+    "en": "Set socket Dim level to [[number]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "number",
+      "name": "number",
+      "title": {
+        "en": "Number"
+      },
+      "placeholder": {
+        "en": "1"
+      },
+      "decimals": 2,
+      "min": 0,
+      "max": 1
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "zoney-test",
+  "title": { "en": "Zoney test" },
+  "titleFormatted": { "en": "Test [[capability]] as [[number]] in [[zone]]" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": { "en": "Zone" },
+      "placeholder": { "en": "Livingroom" }
+    },
+    {
+      "type": "autocomplete",
+      "name": "capability",
+      "title": { "en": "Capability" },
+      "placeholder": { "en": "dim" }
+    },
+    {
+      "type": "number",
+      "name": "number",
+      "title": { "en": "Number" },
+      "placeholder": { "en": 50 }
+    }
+  ]
+}

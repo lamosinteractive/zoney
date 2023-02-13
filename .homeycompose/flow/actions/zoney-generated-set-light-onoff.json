@@ -1,0 +1,31 @@
+{
+  "id": "zoney-generated-set-light-onoff",
+  "title": {
+    "en": "Set light Turned on in zone"
+  },
+  "titleFormatted": {
+    "en": "Set light Turned on to [[bool]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "boolean",
+      "name": "bool",
+      "title": {
+        "en": "Bool"
+      },
+      "placeholder": {
+        "en": "true"
+      }
+    }
+  ]
+}

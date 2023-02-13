@@ -1,0 +1,34 @@
+{
+  "id": "zoney-generated-set-light-light_hue",
+  "title": {
+    "en": "Set light Hue in zone"
+  },
+  "titleFormatted": {
+    "en": "Set light Hue to [[number]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "number",
+      "name": "number",
+      "title": {
+        "en": "Number"
+      },
+      "placeholder": {
+        "en": "1"
+      },
+      "decimals": 2,
+      "min": 0,
+      "max": 1
+    }
+  ]
+}

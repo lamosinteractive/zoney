@@ -31,6 +31,68 @@
   "flow": {
     "actions": [
       {
+        "id": "zoney-class-off",
+        "title": {
+          "en": "Turn off type in zone (max)"
+        },
+        "titleFormatted": {
+          "en": "Turn off [[class]] in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          },
+          {
+            "type": "autocomplete",
+            "name": "class",
+            "title": {
+              "en": "Class"
+            },
+            "placeholder": {
+              "en": "Lights"
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-class-on",
+        "title": {
+          "en": "Turn on type in zone (max)"
+        },
+        "titleFormatted": {
+          "en": "Turn on [[class]] in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          },
+          {
+            "type": "autocomplete",
+            "name": "class",
+            "title": {
+              "en": "Class"
+            },
+            "placeholder": {
+              "en": "Lights"
+            }
+          }
+        ]
+      },
+      {
         "id": "zoney-device-light-on-smart",
         "title": {
           "en": "Turn on light on (smart)"
@@ -76,48 +138,6 @@
         },
         "titleFormatted": {
           "en": "Dim lights in [[zone]]"
-        },
-        "args": [
-          {
-            "type": "autocomplete",
-            "name": "zone",
-            "title": {
-              "en": "Zone"
-            },
-            "placeholder": {
-              "en": "Livingroom"
-            }
-          }
-        ]
-      },
-      {
-        "id": "zoney-light-off",
-        "title": {
-          "en": "Turn off lights in zone"
-        },
-        "titleFormatted": {
-          "en": "Turn off lights in [[zone]]"
-        },
-        "args": [
-          {
-            "type": "autocomplete",
-            "name": "zone",
-            "title": {
-              "en": "Zone"
-            },
-            "placeholder": {
-              "en": "Livingroom"
-            }
-          }
-        ]
-      },
-      {
-        "id": "zoney-light-on",
-        "title": {
-          "en": "Turn on lights in zone"
-        },
-        "titleFormatted": {
-          "en": "Turn on lights in [[zone]]"
         },
         "args": [
           {
@@ -199,6 +219,47 @@
         "id": "zoney-zone-set-number",
         "title": {
           "en": "Set number in zone"
+        },
+        "titleFormatted": {
+          "en": "Set [[capability]] as [[number]] in [[zone]]"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "zone",
+            "title": {
+              "en": "Zone"
+            },
+            "placeholder": {
+              "en": "Livingroom"
+            }
+          },
+          {
+            "type": "autocomplete",
+            "name": "capability",
+            "title": {
+              "en": "Capability"
+            },
+            "placeholder": {
+              "en": "dim"
+            }
+          },
+          {
+            "type": "number",
+            "name": "number",
+            "title": {
+              "en": "Number"
+            },
+            "placeholder": {
+              "en": 50
+            }
+          }
+        ]
+      },
+      {
+        "id": "zoney-test",
+        "title": {
+          "en": "Zoney test"
         },
         "titleFormatted": {
           "en": "Set [[capability]] as [[number]] in [[zone]]"

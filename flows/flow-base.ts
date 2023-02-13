@@ -75,32 +75,34 @@ export class SetZoneNumberFlow extends FlowBase<GenericZoneArguments> {
 
 type ZoneClassBoolFlowArguments = {
     zone: Argument<string>,
+    class: Argument<string>,
 }
 
 export class ZoneClassBoolFlow extends FlowBase<ZoneClassBoolFlowArguments> {
-    private _classType: Class;
     private _value: boolean;
+    private _capability: Capability;
 
-    constructor(id: string, classType: Class, value: boolean) {
+    constructor(id: string, capability: Capability, value: boolean) {
         super(id);
-        this._classType = classType;
         this._value = value;
+        this._capability = capability;
     }
 
     protected filterDevices(devices: HomeyAPI.ManagerDevices.Device[], args: ZoneClassBoolFlowArguments, state: any): HomeyAPI.ManagerDevices.Device[] {
         return devices
             .filter(x => x.zone === args.zone.id)
-            .filter(x => x.class === this._classType);
+            .filter(x => x.class === args.class.id);
     }
 
     getArguments(): FlowParameter[] {
         return [
             FlowParameter.zone,
+            FlowParameter.class,
         ];
     }
 
     protected getCapability(args: ZoneClassBoolFlowArguments, state: any): Capability {
-        return Capability.onoff;
+        return this._capability;
     }
 
     protected getValue(args: ZoneClassBoolFlowArguments, context: DeviceContext): any {

@@ -1,0 +1,31 @@
+{
+  "id": "zoney-generated-set-speaker-speaker_playing",
+  "title": {
+    "en": "Set speaker Playing in zone"
+  },
+  "titleFormatted": {
+    "en": "Set speaker Playing to [[bool]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "boolean",
+      "name": "bool",
+      "title": {
+        "en": "Bool"
+      },
+      "placeholder": {
+        "en": "true"
+      }
+    }
+  ]
+}

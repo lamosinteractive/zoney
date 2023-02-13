@@ -1,0 +1,34 @@
+{
+  "id": "zoney-generated-set-blinds-windowcoverings_tilt_set",
+  "title": {
+    "en": "Set blinds Window coverings tilt set in zone"
+  },
+  "titleFormatted": {
+    "en": "Set blinds Window coverings tilt set to [[number]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "number",
+      "name": "number",
+      "title": {
+        "en": "Number"
+      },
+      "placeholder": {
+        "en": "1"
+      },
+      "decimals": 2,
+      "min": 0,
+      "max": 1
+    }
+  ]
+}

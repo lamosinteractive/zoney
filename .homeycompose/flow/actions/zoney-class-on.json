@@ -1,0 +1,19 @@
+{
+  "id": "zoney-class-on",
+  "title": { "en": "Turn on type in zone (max)" },
+  "titleFormatted": { "en": "Turn on [[class]] in [[zone]]" },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": { "en": "Zone" },
+      "placeholder": { "en": "Livingroom" }
+    },
+    {
+      "type": "autocomplete",
+      "name": "class",
+      "title": { "en": "Class" },
+      "placeholder": { "en": "Lights" }
+    }
+  ]
+}

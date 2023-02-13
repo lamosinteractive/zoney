@@ -1,0 +1,34 @@
+{
+  "id": "zoney-generated-set-light-light_temperature",
+  "title": {
+    "en": "Set light Color temperature in zone"
+  },
+  "titleFormatted": {
+    "en": "Set light Color temperature to [[number]] in [[zone]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "zone",
+      "title": {
+        "en": "Zone"
+      },
+      "placeholder": {
+        "en": "Livingroom"
+      }
+    },
+    {
+      "type": "number",
+      "name": "number",
+      "title": {
+        "en": "Number"
+      },
+      "placeholder": {
+        "en": "1"
+      },
+      "decimals": 2,
+      "min": 0,
+      "max": 1
+    }
+  ]
+}
